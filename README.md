@@ -258,7 +258,8 @@ Before final submission, ensure:
 - [ ] Cleanup script provided (`destroy.sh` or documented `terraform destroy` procedure)
 - [ ] Repository is well-organized and documented
 
-**Submission**: Git repository URL + Live domain URL + Demo video or live presentation slot.
+**Submission**: Git repository URL + Live domain URL + Demo video.
+**Submission link**: https://forms.gle/8WsQDXWqDhuYPFxk9
 
 ---
 
