@@ -19,3 +19,14 @@ variable "private_subnet_cidrs" {
   description = "List of CIDR blocks for private subnets"
   type        = list(string)
 }
+variable "enable_dns_support" {
+  description = "Enable DNS support inside the VPC"
+  type        = bool
+  default     = true
+}
+
+variable "enable_dns_hostnames" {
+  description = "Enable DNS hostnames inside the VPC"
+  type        = bool
+  default     = true
+}
