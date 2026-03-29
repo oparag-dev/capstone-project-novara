@@ -1,3 +1,11 @@
+module "core" {
+  source = "../modules/core"
+
+  project_name = var.project_name
+  aws_region   = var.aws_region
+  azs          = var.azs
+}
+
 module "vpc" {
   source = "../modules/vpc"
 
