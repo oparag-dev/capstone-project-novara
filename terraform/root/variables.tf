@@ -19,12 +19,17 @@ variable "public_subnet_cidrs" {
   default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 variable "private_subnet_cidrs" {
-    description = "List of CIDR blocks for private subnets"
-    type        = list(string)
-    default     = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"] 
+  description = "List of CIDR blocks for private subnets"
+  type        = list(string)
+  default     = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
 }
 variable "azs" {
   description = "List of availability zones to use"
   type        = list(string)
   default     = ["eu-west-3a", "eu-west-3b", "eu-west-3c"]
+}
+variable "nat_gateway_enabled" {
+  description = "Whether to create NAT gateways"
+  type        = bool
+  default     = true
 }

@@ -30,3 +30,8 @@ variable "enable_dns_hostnames" {
   type        = bool
   default     = true
 }
+variable "nat_gateway_enabled" {
+  description = "Whether to create NAT gateways"
+  type        = bool
+  default     = true
+}
