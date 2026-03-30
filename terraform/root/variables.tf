@@ -28,8 +28,18 @@ variable "azs" {
   type        = list(string)
   default     = ["eu-west-3a", "eu-west-3b", "eu-west-3c"]
 }
+variable "enable_dns_support" {
+  description = "Enable DNS support inside the VPC"
+  type        = bool
+  default     = true
+}
 variable "nat_gateway_enabled" {
-  description = "Whether to create NAT gateways"
+  description = "Whether to create NAT Gateway"
+  type        = bool
+  default     = true
+}
+variable "single_nat_gateway" {
+  description = "Use one shared NAT Gateway for all private subnets"
   type        = bool
   default     = true
 }
