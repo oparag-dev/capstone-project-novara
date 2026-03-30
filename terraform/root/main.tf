@@ -14,5 +14,7 @@ module "vpc" {
   azs                  = var.azs
   public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
+
   nat_gateway_enabled  = var.nat_gateway_enabled
+  single_nat_gateway   = var.single_nat_gateway
 }
