@@ -12,3 +12,8 @@ variable "azs" {
   description = "Availability Zones to use passed from root"
   type        = list(string)
 }
+
+variable "environment" {
+  description = "Environment to deploy into passed from root"
+  type        = string
+}

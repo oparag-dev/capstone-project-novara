@@ -1,0 +1,27 @@
+---
+- name: Deploy application manifests
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Apply Kubernetes manifests
+      command: kubectl apply -k k8s/base
+      args:
+        chdir: "{{ playbook_dir }}/../../"
+
+    - name: Wait for backend rollout
+      command: kubectl rollout status deployment/backend -n taskapp --timeout=180s
+      changed_when: false
+
+    - name: Wait for frontend rollout
+      command: kubectl rollout status deployment/frontend -n taskapp --timeout=180s
+      changed_when: false
+
+    - name: Check postgres pod
+      command: kubectl get pods -n taskapp -l app=postgres
+      register: postgres_status
+      changed_when: false
+
+    - name: Show postgres status
+      debug:
+        var: postgres_status.stdout_lines
+

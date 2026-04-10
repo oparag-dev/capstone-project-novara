@@ -1,0 +1,22 @@
+---
+- name: Apply Kubernetes manifests
+  command: kubectl apply -k {{ manifest_path }}
+  args:
+    chdir: "{{ playbook_dir }}/../../"
+
+- name: Wait for backend rollout
+  command: kubectl rollout status deployment/backend -n {{ namespace }} --timeout=180s
+  changed_when: false
+
+- name: Wait for frontend rollout
+  command: kubectl rollout status deployment/frontend -n {{ namespace }} --timeout=180s
+  changed_when: false
+
+- name: Get all resources in namespace
+  command: kubectl get all -n {{ namespace }}
+  register: app_status
+  changed_when: false
+
+- name: Show deployed resources
+  debug:
+    var: app_status.stdout_lines

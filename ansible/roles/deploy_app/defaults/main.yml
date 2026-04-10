@@ -1,0 +1,4 @@
+---
+namespace: taskapp
+manifest_path: k8s/base
+

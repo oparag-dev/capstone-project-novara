@@ -43,3 +43,20 @@ variable "single_nat_gateway" {
   type        = bool
   default     = true
 }
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+  default     = "dev"
+}
+
+variable "kops_state_bucket_name" {
+  description = "S3 bucket name for Kops state store"
+  type        = string
+  default     = "opara-kops-state"
+}
+variable "domain_name" {
+  description = "Root domain name"
+  type        = string
+  default     = "oparatechstack.com"
+}
