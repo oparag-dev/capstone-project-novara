@@ -119,4 +119,5 @@ yarn-error.log*
 .idea/
 .DS_Store
 Thumbs.db
-EOF
+terraform.tfstate*
+
