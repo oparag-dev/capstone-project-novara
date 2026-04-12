@@ -49,3 +49,63 @@ scripts/         Utility and cleanup scripts
 terraform/       Infrastructure as code
 README.md        Project overview and usage
 
+capstone-project-novara/
+├── .github/
+│   └── workflows/
+│       ├── deploy.yml
+│       └── terraform.yml
+├── ansible/
+│   ├── inventory/
+│   ├── playbooks/
+│   └── roles/
+├── app/
+│   ├── taskapp_backend/
+│   │   ├── app/
+│   │   ├── tests/
+│   │   ├── Dockerfile
+│   │   └── requirements.txt
+│   └── taskapp_frontend/
+│       ├── src/
+│       │   ├── components/
+│       │   ├── contexts/
+│       │   ├── pages/
+│       │   ├── services/
+│       │   └── types/
+│       ├── public/
+│       ├── Dockerfile
+│       ├── package.json
+│       └── vite.config.ts
+├── docs/
+│   ├── architecture.md
+│   ├── cost-analysis.md
+│   ├── deployment-guide.md
+│   └── troubleshooting.md
+├── k8s/
+│   └── base/
+│       ├── namespace.yaml
+│       ├── db-service.yaml
+│       ├── db-statefulset.yaml
+│       ├── backend-deployment.yaml
+│       ├── backend-service.yaml
+│       ├── frontend-deployment.yaml
+│       ├── frontend-service.yaml
+│       ├── ingress.yaml
+│       └── kustomization.yaml
+├── kops/
+│   └── cluster.yaml
+├── scripts/
+│   ├── apply-cluster.sh
+│   ├── delete-cluster.sh
+│   ├── destroy.sh
+│   ├── generate-cluster.sh
+│   └── set-env.sh
+├── terraform/
+│   └── root/
+│       ├── backend.tf
+│       ├── main.tf
+│       ├── outputs.tf
+│       ├── provider.tf
+│       ├── terraform.tfvars
+│       └── variables.tf
+├── .gitignore
+└── README.md
