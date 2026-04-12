@@ -1,6 +1,6 @@
 import { Task, CreateTaskInput, UpdateTaskInput } from '../types/task';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.oparatechstack.com/api';
 
 function getAuthHeaders(): HeadersInit {
   const token = localStorage.getItem('auth_token');
@@ -11,10 +11,25 @@ function getAuthHeaders(): HeadersInit {
 }
 
 async function handleResponse<T>(response: Response): Promise<T> {
+  const contentType = response.headers.get('content-type') || '';
+
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ error: 'An error occurred' }));
-    throw new Error(error.error || `HTTP error! status: ${response.status}`);
+    if (contentType.includes('application/json')) {
+      const error = await response.json().catch(() => ({ error: 'Request failed' }));
+      throw new Error(error.error || `HTTP error! status: ${response.status}`);
+    }
+
+    const text = await response.text().catch(() => '');
+    throw new Error(
+      text ? `HTTP ${response.status}: ${text.slice(0, 200)}` : `HTTP error! status: ${response.status}`
+    );
   }
+
+  if (!contentType.includes('application/json')) {
+    const text = await response.text().catch(() => '');
+    throw new Error(`Expected JSON but got: ${text.slice(0, 200)}`);
+  }
+
   return response.json();
 }
 

@@ -28,4 +28,12 @@ kubectl apply -f k8s/base/db-service.yaml
 kubectl apply -f k8s/base/db-statefulset.yaml
 kubectl get pods -n taskapp -w
 
+#
+docker build --no-cache -t oparag/taskapp-backend:latest ./app/taskapp_backend
+docker push oparag/taskapp-backend:latest
+
+##
+grep -R "DATABASE_URL" -n app/taskapp_backend
+grep -R "DB_HOST" -n app/taskapp_backend
+grep -R "localhost" -n app/taskapp_backend
 

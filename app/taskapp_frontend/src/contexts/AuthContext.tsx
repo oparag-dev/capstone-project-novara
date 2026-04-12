@@ -16,6 +16,8 @@ interface AuthContextType {
   isAuthenticated: boolean;
 }
 
+const API_BASE_URL = 'https://api.oparatechstack.com/api';
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -37,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (username: string, password: string) => {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL || '/api'}/auth/login`,
+      `${API_BASE_URL}/auth/login`,
       {
         method: 'POST',
         headers: {
@@ -47,9 +49,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     );
 
+    const contentType = response.headers.get('content-type') || '';
+
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Login failed');
+      if (contentType.includes('application/json')) {
+        const error = await response.json();
+        throw new Error(error.error || 'Login failed');
+      }
+
+      const text = await response.text();
+      throw new Error(text || 'Login failed');
     }
 
     const data = await response.json();
@@ -61,7 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (username: string, password: string) => {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/signup`,
+      `${API_BASE_URL}/auth/signup`,
       {
         method: 'POST',
         headers: {
@@ -71,9 +80,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     );
 
+    const contentType = response.headers.get('content-type') || '';
+
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Signup failed');
+      if (contentType.includes('application/json')) {
+        const error = await response.json();
+        throw new Error(error.error || 'Signup failed');
+      }
+
+      const text = await response.text();
+      throw new Error(text || 'Signup failed');
     }
 
     const data = await response.json();
@@ -91,15 +107,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      token, 
-      loading, 
-      login, 
-      signup, 
-      logout, 
-      isAuthenticated: !!token 
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        loading,
+        login,
+        signup,
+        logout,
+        isAuthenticated: !!token
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
